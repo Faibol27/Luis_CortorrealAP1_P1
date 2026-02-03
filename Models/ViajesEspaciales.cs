@@ -15,5 +15,7 @@ public class ViajesEspaciales
 
     [Required]
     public double Costo { get; set; }
+
+
 }
 

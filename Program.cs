@@ -1,4 +1,6 @@
 using Luis_CortorrealAP1_P1.Components;
+using Luis_CortorrealAP1_P1.DAL;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 var app = builder.Build();
+var SqlCon = builder.Configuration.GetConnectionString("SqlConStr");
+builder.Services.AddDbContextFactory<Contexto>(v => v.UseSqlServer(SqlCon));
 
 
 // Configure the HTTP request pipeline.
