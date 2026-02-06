@@ -1,3 +1,4 @@
+using Blazored.Toast;
 using Luis_CortorrealAP1_P1.Components;
 using Luis_CortorrealAP1_P1.DAL;
 using Luis_CortorrealAP1_P1.Models;
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddBlazoredToast();
 
 var SqlCon = builder.Configuration.GetConnectionString("SqlConStr");
 builder.Services.AddDbContextFactory<Contexto>(v => v.UseSqlServer(SqlCon));
