@@ -2,7 +2,7 @@
 
 namespace Luis_CortorrealAP1_P1.Models;
 
-public class ViajesEspaciales
+public class EntradasHuacales
 {
     [Key]
     public int ViajeId { get; set; }
