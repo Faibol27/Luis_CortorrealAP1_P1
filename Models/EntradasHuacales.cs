@@ -11,7 +11,7 @@ public class EntradasHuacales
     public DateTime Fecha { get; set; }
 
     [Required]
-    public string NombreCliente { get; set; }
+    public string NombreCliente { get; set; } = string.Empty;
 
     [Required]
     public int Cantidad { get; set; }
