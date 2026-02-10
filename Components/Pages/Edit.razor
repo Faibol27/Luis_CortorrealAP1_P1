@@ -1,4 +1,4 @@
-﻿@page "/Edit"
+﻿@page "/Edit/"
 @rendermode InteractiveServer
 
 @inject EntradasHuacalesServices Services
@@ -59,8 +59,24 @@
 
 @code {
 	[SupplyParameterFromQuery]
-	public int HuacalesId { get; set; }
+	public int IdEntrada { get; set; }
 	public EntradasHuacales Huacales = new EntradasHuacales();
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (IdEntrada > 0)
+		{
+			var encontrado = await Services.Buscar(IdEntrada);
+			if (encontrado != null)
+			{
+				Huacales = encontrado;
+			}
+			else
+			{
+				Toast.ShowError("Registro no encontrado");
+			}
+		}
+	}
 
 	public async Task Modificar()
 	{
@@ -76,7 +92,7 @@
 	}
 	public async Task Eliminar()
 	{
-		var eliminado = await Services.Eliminar(HuacalesId);
+		var eliminado = await Services.Eliminar(IdEntrada);
 		if (eliminado)
 		{
 			Toast.ShowSuccess("Eliminado");
