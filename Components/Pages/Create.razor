@@ -1,6 +1,10 @@
 ﻿@page "/Create"
+@rendermode InteractiveServer
+
 @inject EntradasHuacalesServices Services
 @inject IToastService Toast
+
+
 
 <EditForm Model="Huacales" OnValidSubmit="Guardar"FormName="Huacales">
 	<DataAnnotationsValidator />
