@@ -9,7 +9,18 @@ public class EntradasHuacalesServices(IDbContextFactory<Contexto> DbFactory)
 {
     public async Task<bool> Guardar(EntradasHuacales Huacales)
     {
-        return true;
+        if (await Existe(Huacales.NombreCliente, Huacales.IdEntrada))
+        {
+            return false;
+        }
+        if (!await Existe(Huacales.NombreCliente, Huacales.IdEntrada))
+        {
+            return await Insertar(Huacales);
+        }
+        else
+        {
+            return await Modificar(Huacales);
+        }
     }
 
     public async Task<bool> Existe(string nombre, int id)
@@ -35,7 +46,7 @@ public class EntradasHuacalesServices(IDbContextFactory<Contexto> DbFactory)
     public async Task<EntradasHuacales?> Buscar(int id)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
-        return await contexto.EntradasHuacales.FirstOrDefaultAsync(h=>h.IdEntrada==id);
+        return await contexto.EntradasHuacales.FirstOrDefaultAsync(h => h.IdEntrada == id);
     }
 
     public async Task<bool> Eliminar(int id)

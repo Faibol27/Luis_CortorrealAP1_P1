@@ -1,5 +1,69 @@
-﻿<h3>Create</h3>
-agregar los botones
-@code {
+﻿@page "/Create"
+@inject EntradasHuacalesServices Services
+@inject IToastService Toast
 
+<EditForm Model="Huacales" OnValidSubmit="Guardar"FormName="Huacales">
+	<DataAnnotationsValidator />
+
+	<div class="container ">
+		<div class=" card shadow-lg">
+			<div class="card-header shadow-lg">
+				<div class="text-center">
+					<h1>Crear Huacales</h1>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="mb-3">
+					<label class="form-label"><strong>Nombre Cliente</strong></label>
+					<InputText class="form-control" @bind-Value="Huacales.NombreCliente"></InputText>
+					<ValidationMessage For="(() => Huacales.NombreCliente)" />
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label"><strong>Fecha</strong></label>
+					<InputDate class="form-control" @bind-Value="Huacales.Fecha"></InputDate>
+					<ValidationMessage For="(() => Huacales.Fecha)" />
+				</div>
+
+				<div class="mb-3">
+					<label class=" form-label"><strong>Cantidad</strong></label>
+					<InputNumber class="form-control" @bind-Value="Huacales.Cantidad"></InputNumber>
+					<ValidationMessage For="(() => Huacales.Cantidad)" />
+				</div>
+				<div class="mb-3">
+					<label class=" form-label"><strong>Precio</strong></label>
+					<InputNumber class="form-control" @bind-Value="Huacales.Precio"></InputNumber>
+					<ValidationMessage For="(() => Huacales.Precio)" />
+				</div>
+			</div>
+			<div class="card-footer text-center">
+				<a href="/Index" class="btn btn-secondary">
+					<i class="bi bi-square"></i>Volver
+				</a>
+				<button class=" btn btn-primary">
+					<i class="bi bi-square"></i>Guardar
+				</button>
+			</div>
+		</div>
+	</div>
+</EditForm>
+
+
+
+@code {
+	public EntradasHuacales Huacales = new EntradasHuacales();
+
+	public async Task Guardar()
+	{
+
+		var guardo = await Services.Guardar(Huacales);
+		if (guardo)
+		{
+			Toast.ShowSuccess("Agregado correctamente");
+		}
+		else
+		{
+			Toast.ShowError("Error no se agrego ");
+		}
+	}
 }

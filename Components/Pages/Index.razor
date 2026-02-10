@@ -1,5 +1,93 @@
-﻿<h3>Index</h3>
-agregar los botones
+﻿@page "/Index"
+@inject EntradasHuacalesServices Services
+
+<PageTitle>Huacales Index</PageTitle>
+<div class="container">
+	<div class="card shadow-lg">
+		<div class=" card_header text-center">
+			<h1 class="cardTitle">Huacales</h1>
+		</div>
+		<div class=" card-body">
+			<div class="text-end">
+				<a href="/Create" class=" btn btn-primary">
+					<i class=" bi bi-square"></i>Crear
+				</a>
+			</div>
+@* 			<div class=" row mb-3">
+				<div class="col mb-3">
+					<label>Filtar por:</label>
+					<select class=" form-control" @bind="Filtrar">
+						<option value="id">Id</option>
+						<option value="nombre">Nombre Cliente</option>
+					</select>
+
+					<div class=" col mb-3">
+						<label class="input-group">
+							<InputText></InputText>
+						</label>
+					</div>
+				</div>
+			</div> *@
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nombre Cliente</th>
+						<th>Fecha</th>
+						<th>Cantidad</th>
+						<th>Precio</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var e in Huacales)
+					{
+						<tr>
+							<td>@e.IdEntrada</td>
+							<td>@e.NombreCliente</td>
+							<td>@e.Fecha</td>
+							<td>@e.Cantidad</td>
+							<td>@e.Precio</td>
+							<td>
+								<a href="/Edit?HuacalesId=@e.IdEntrada" class="btn btn-warning">
+									<i class="bi bi-pencil-square"></i> Editar
+								</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class=" card-footer">
+		<strong>Total: </strong>@Huacales.Count
+	</div>
+</div>
+
+
+
 @code {
+	public List<EntradasHuacales> Huacales { get; set; } = new List<EntradasHuacales>();
+	public string Filtrar { get; set; } = string.Empty;
+	public string ValorFiltro { get; set; } = string.Empty;
+
+	protected override async Task OnInitializedAsync()
+	{
+		Huacales = await Services.Listar(h => h.IdEntrada > 0);
+	}
+	// public async Task Buscar()
+	// {
+	// 	if (ValorFiltro != "")
+	// 	{
+	// 		if (ValorFiltro == "nombre")
+	// 		{
+	// 			await Services.Listar(h => h.NombreCliente.Contains());
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		await Services.Listar(h => h.IdEntrada);
+	// 	}
+	// }
 
 }

@@ -7,18 +7,18 @@ public class EntradasHuacales
     [Key]
     public int IdEntrada { get; set; }
 
-    [Required]
+
+    [Required(ErrorMessage = "Este campo es requerido")]
+    public string NombreCliente { get; set; }
+
+    [Required(ErrorMessage = "Este campo es requerido")]
     public DateTime Fecha { get; set; }
 
-    [Required]
-    public string NombreCliente { get; set; } = string.Empty;
-
-    [Required]
+    [Required(ErrorMessage = "Este campo es requerido")]
     public int Cantidad { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Este campo es requerido")]
     public double Precio { get; set; }
-
 
 }
 

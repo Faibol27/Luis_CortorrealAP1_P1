@@ -15,7 +15,7 @@ builder.Services.AddBlazoredToast();
 
 var SqlCon = builder.Configuration.GetConnectionString("SqlConStr");
 builder.Services.AddDbContextFactory<Contexto>(v => v.UseSqlServer(SqlCon));
-builder.Services.AddScoped<ViajesEspacialesServices>();
+builder.Services.AddScoped<Luis_CortorrealAP1_P1.Services.EntradasHuacalesServices>();
 
 var app = builder.Build();
 
